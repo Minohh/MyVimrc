@@ -1,6 +1,44 @@
 """""""""""""plugin managment tool: pathogen"""""""""""""""""""
 execute pathogen#infect()
 filetype plugin indent on
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""indent""""""""""""""""""""""""""""""""""
+"c indent style 
+"set autoindent
+"set cindent
+
+"indent width
+" show existing tab with 4 spaces width, still a tab
+set tabstop=4
+" sets the number of columns for a tab.
+set softtabstop=4
+
+"expand tab to space
+set expandtab
+" when indenting with '>'(type new tab), use 4 spaces width
+set shiftwidth=4
+
+" for C-like  programming where comments have explicit end
+" characters, if starting a new line in the middle of a comment automatically
+" insert the comment leader characters:
+autocmd FileType c,cpp,java set formatoptions+=ro
+autocmd FileType c set omnifunc=ccomplete#Complete
+
+" two space indentation for some files
+autocmd FileType vim,lua,nginx set shiftwidth=2 softtabstop=2
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+" ensure normal tabs in assembly files
+" and set to NASM syntax highlighting
+autocmd FileType asm set shiftwidth=4 softtabstop=0 syntax=nasm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 
 """"""""""""normal config""""""""""""""
 "set fileformats=unix
@@ -10,18 +48,6 @@ syntax on
 "colorscheme murphy
 
 set hlsearch
-
-"c indent style 
-set autoindent
-set cindent
-
-"indent width
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
-
-"expand tab to space
-set expandtab
 
 "align style
 set cino=g0,:0
@@ -34,7 +60,7 @@ set viminfo='1000,<500
 """""""""""""""""""""""""""""""""""""""
 
 
-"Taglist config
+"""""""""""""""""Taglist config""""""""""""""""""""""""""
 let Tlist_Show_One_File=1
 let Tlist_Exit_OnlyWindow=1
 let Tlist_WinWidth=35
@@ -43,7 +69,7 @@ let Tlist_Use_Right_Window=0
 let Tlist_File_Fold_Auto_Close=1
 let Tlist_Auto_Update=1
 let Tlist_Process_File_Always=1
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 "search tags file
@@ -52,7 +78,7 @@ set tags=tags;
 
 
 
-
+"""""""""""""""""""cscope"""""""""""""""""""""""""""""""
 "which cscope
 set csprg=/usr/bin/cscope
 
@@ -119,6 +145,6 @@ nmap <C-_>e :cs find e <C-R>=expand("<cword>" )<CR><CR>
 nmap <C-_>f :cs find f <C-R>=expand("<cfile>" )<CR><CR>  
 nmap <C-_>i :cs find i ^<C-R>=expand("<cfile>" )<CR>$<CR>  
 nmap <C-_>d :cs find d <C-R>=expand("<cword>" )<CR><CR> 
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
