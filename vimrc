@@ -27,7 +27,7 @@ autocmd FileType c,cpp,java set formatoptions+=ro
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 " two space indentation for some files
-autocmd FileType vim,lua,nginx set shiftwidth=2 softtabstop=2
+autocmd FileType vim,lua,nginx,html,css set shiftwidth=2 softtabstop=2
 
 " in makefiles, don't expand tabs to spaces, since actual tab characters are
 " needed, and have indentation at 8 chars to be sure that all indents are tabs
