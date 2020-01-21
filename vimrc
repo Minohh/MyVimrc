@@ -1,6 +1,51 @@
-"""""""""""""plugin managment tool: pathogen"""""""""""""""""""
-execute pathogen#infect()
+set nocompatible
+filetype off
+
+""""""""""""" vundle """"""""""""""""""""""""""""""""""""""""""
+" Install vundle : 
+" git clone https://github.com/VundleVim/Vundle.vim.git
+" ~/.vim/bundle/Vundle.vim
+
+" Install plugins: 
+" 1. Open vim
+" 2. esc
+" 3. :PluginInstall
+" Remove plugins:
+" 1. delete the plugin line below
+" 2. open vim
+" 3. esc
+" 4. :PluginClean
+"
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'Taglist.vim'
+Plugin 'Valloric/YouCompleteMe'
+
+call vundle#end()
 filetype plugin indent on
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""""""""""""YouCompleteMe"""""""""""""""""""""""""""
+" Install YouCompleteMe in Linux x64
+" Reference 
+"       https://github.com/ycm-core/YouCompleteMe#linux-64-bit
+" 1. sudo apt install build-essential cmake python3-dev (python)
+" 2. install clang for syntax completion
+" 3. install (download) YouCompleteMe in vundle
+" 4. cd ~/.vim/bundle/YouCompleteMe
+" 5. install.py --clang-completer
+" 6. cp the modified .ycm_extra_conf.py to ~/
+let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+let g:ycm_confirm_extra_conf=0
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""plugin managment tool: pathogen"""""""""""""""""""
+" execute pathogen#infect()
+" filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
