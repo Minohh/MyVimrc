@@ -22,6 +22,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'Taglist.vim'
 Plugin 'Valloric/YouCompleteMe'
+Plugin 'morhetz/gruvbox'
 
 call vundle#end()
 filetype plugin indent on
@@ -33,7 +34,7 @@ filetype plugin indent on
 " Reference 
 "       https://github.com/ycm-core/YouCompleteMe#linux-64-bit
 " 1. sudo apt install build-essential cmake python3-dev (python)
-" 2. install clang for syntax completion
+" - 2. install clang for syntax completion
 " 3. install (download) YouCompleteMe in vundle
 " 4. cd ~/.vim/bundle/YouCompleteMe
 " 5. install.py --clang-completer
@@ -87,6 +88,12 @@ autocmd FileType asm set shiftwidth=4 softtabstop=0 syntax=nasm
 
 """"""""""""normal config""""""""""""""
 "set fileformats=unix
+
+" coloring
+set t_Co=256
+set background=dark
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 "systax highlight
 syntax on
