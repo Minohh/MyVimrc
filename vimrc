@@ -23,6 +23,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'Taglist.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'morhetz/gruvbox'
+Plugin 'jeaye/color_coded'
+Plugin 'rdnetto/YCM-Generator', { 'branch': 'stable' }
 
 call vundle#end()
 filetype plugin indent on
@@ -39,9 +41,71 @@ filetype plugin indent on
 " 4. cd ~/.vim/bundle/YouCompleteMe
 " 5. install.py --clang-completer
 " 6. cp the modified .ycm_extra_conf.py to ~/
-let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
+" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf=0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""color_coded""""""""""""""""""""""""""""""
+" Install color_coded
+" 1. Install color_coded plugin using Vundle
+" 2. Make sure your vim is build with lua
+"    vim --version | grep lua ----> +lua
+"    Otherwise you have to recompile vim 
+"    Ref: https://gist.github.com/leolord/bb51bdee3f199c2a6cfe2d57a42a2c26
+"    1. # Remove previous installations
+"       sudo apt-get remove vim vim-runtime vim-tiny vim-common
+"    2. # Install dependencies
+"       sudo apt-get install libncurses5-dev python-dev liblua5.3-dev lua5.3
+"       python3-dev
+"    3. # Fix liblua paths
+"       sudo ln -s /usr/include/lua5.3 /usr/include/lua
+"       sudo ln -s /usr/lib/x86_64-linux-gnu/liblua5.3.so
+"       /usr/local/lib/liblua.so
+"    4. # Clone vim sources
+"       cd ~ && git clone https://github.com/vim/vim.git && cd vim
+"    5. # configure with lua
+"       ./configure \
+"         --enable-luainterp \
+"         --enable-python3interp \
+"         --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/ \
+"         --enable-cscope \
+"         --disable-netbeans \
+"         --enable0terminal \
+"         --disable-xsmp \
+"         --enable-fontset \
+"         --enable-multibyte \
+"         --enable-fail-if-missing \
+"         --with-compiledby=leolord \
+"         --with-modified-by=leolord
+"    6. # make and install
+"       make && sudo make install
+
+" 3. build color_coded
+"    1. cd ~/.vim/bundle/color_coded
+"    2. mkdir build && cd build
+"    3. cmake ..
+"    4. make && make install # Compiling with GCC is preferred, ironically
+"    # Clang works on OS X, but has mixed success on Linux and the BSDs
+"
+"    # Cleanup afterward; frees several hundred megabytes
+"    5. make clean && make clean_clang
+
+set backspace=indent,eol,start
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""YCM-Generator"""""""""""""""""""""""""""
+" This is a script which generates a list of compiler flags 
+" from a project with an arbitrary build system. It can be used to:
+"   - generate a .ycm_extra_conf.py file for use with YouCompleteMe
+"   - generate a .color_coded file for use with color_coded
+"
+" Usage:
+"     Run ./config_gen.py PROJECT_DIRECTORY, where PROJECT_DIRECTORY 
+"     is the root directory of your project's build system 
+"     (i.e. the one containing the root Makefile, etc.)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
 """""""""""""plugin managment tool: pathogen"""""""""""""""""""
@@ -91,6 +155,8 @@ autocmd FileType asm set shiftwidth=4 softtabstop=0 syntax=nasm
 
 " coloring
 set t_Co=256
+" fix background color erase, https://sunaku.github.io/vim-256color-bce.html 
+set t_ut=
 set background=dark
 let g:gruvbox_italic=1
 colorscheme gruvbox
