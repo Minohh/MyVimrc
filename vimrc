@@ -35,14 +35,13 @@ filetype plugin indent on
 " Install YouCompleteMe in Linux x64
 " Reference 
 "       https://github.com/ycm-core/YouCompleteMe#linux-64-bit
-" 1. sudo apt install build-essential cmake python3-dev (python)
-" - 2. install clang for syntax completion
-" 3. install (download) YouCompleteMe in vundle
-" 4. cd ~/.vim/bundle/YouCompleteMe
-" 5. install.py --clang-completer
-" 6. cp the modified .ycm_extra_conf.py to ~/
-" let g:ycm_global_ycm_extra_conf='~/.ycm_extra_conf.py'
-let g:ycm_confirm_extra_conf=0
+" 1. download YouCompleteMe using PluginInstall
+" 2. cd ~/.vim/bundle/YouCompleteMe
+" 3. git checkout legacy-c++11 if you env (g++) no support c++
+" 4. git submodule update --init --recursive
+" 5. python install.py
+" 6. set the variable below for YouCompleteMe to run with vim
+set pythonthreedll=/data/ouming/anaconda3/lib/libpython3.8.so.1.0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -68,7 +67,9 @@ let g:ycm_confirm_extra_conf=0
 "       ./configure \
 "         --enable-luainterp \
 "         --enable-python3interp \
-"         --with-python3-config-dir=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu/ \
+"         --enable-pythoninterp \
+"         --with-python3-command=python3.8 \
+"         --with-python3-config-dir=/data/xxx/anaconda3/lib/python3.8/config-3.8m-x86_64-linux-gnu/ \
 "         --enable-cscope \
 "         --disable-netbeans \
 "         --enable0terminal \
@@ -76,10 +77,8 @@ let g:ycm_confirm_extra_conf=0
 "         --enable-fontset \
 "         --enable-multibyte \
 "         --enable-fail-if-missing \
-"         --with-compiledby=leolord \
-"         --with-modified-by=leolord
 "    6. # make and install
-"       make && sudo make install
+"       make -j16 && sudo make install
 
 " 3. build color_coded
 "    1. cd ~/.vim/bundle/color_coded
