@@ -41,7 +41,7 @@ filetype plugin indent on
 " 4. git submodule update --init --recursive
 " 5. python install.py
 " 6. set the variable below for YouCompleteMe to run with vim
-set pythonthreedll=/data/ouming/anaconda3/lib/libpython3.8.so.1.0
+set pythonthreedll=/data/xxx/anaconda3/lib/libpython3.8.so.1.0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
@@ -77,6 +77,7 @@ set pythonthreedll=/data/ouming/anaconda3/lib/libpython3.8.so.1.0
 "         --enable-fontset \
 "         --enable-multibyte \
 "         --enable-fail-if-missing \
+"         --prefix=/data/xxx/anaconda3/
 "    6. # make and install
 "       make -j16 && sudo make install
 
