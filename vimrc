@@ -39,7 +39,7 @@ filetype plugin indent on
 " 2. cd ~/.vim/bundle/YouCompleteMe
 " 3. git checkout legacy-c++11 if you env (g++) no support c++
 " 4. git submodule update --init --recursive
-" 5. python install.py
+" 5. python install.py --clangd-completer
 " 6. set the variable below for YouCompleteMe to run with vim
 set pythonthreedll=/data/xxx/anaconda3/lib/libpython3.8.so.1.0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -72,7 +72,7 @@ set pythonthreedll=/data/xxx/anaconda3/lib/libpython3.8.so.1.0
 "         --with-python3-config-dir=/data/xxx/anaconda3/lib/python3.8/config-3.8m-x86_64-linux-gnu/ \
 "         --enable-cscope \
 "         --disable-netbeans \
-"         --enable0terminal \
+"         --enable-terminal \
 "         --disable-xsmp \
 "         --enable-fontset \
 "         --enable-multibyte \
@@ -90,6 +90,8 @@ set pythonthreedll=/data/xxx/anaconda3/lib/libpython3.8.so.1.0
 "
 "    # Cleanup afterward; frees several hundred megabytes
 "    5. make clean && make clean_clang
+"
+"4. :CCerror can show color_coded errors such as lack of include file when highlight not works correctly
 
 set backspace=indent,eol,start
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -102,9 +104,12 @@ set backspace=indent,eol,start
 "   - generate a .color_coded file for use with color_coded
 "
 " Usage:
-"     Run ./config_gen.py PROJECT_DIRECTORY, where PROJECT_DIRECTORY 
-"     is the root directory of your project's build system 
-"     (i.e. the one containing the root Makefile, etc.)
+"     1. Run ./config_gen.py PROJECT_DIRECTORY, where PROJECT_DIRECTORY 
+"        is the root directory of your project's build system 
+"        (i.e. the one containing the root Makefile, etc.)
+"     2. use vim command to generate config files
+"        YouCompleteMe    :YcmGenerateConfig ----> .ycm_extra_conf.py
+"        color_coded      :CCGenerateConfig  ----> .color_coded
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
