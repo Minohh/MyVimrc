@@ -42,6 +42,8 @@ filetype plugin indent on
 " 5. python install.py --clangd-completer
 " 6. set the variable below for YouCompleteMe to run with vim
 set pythonthreedll=/data/xxx/anaconda3/lib/libpython3.8.so.1.0
+" disable .ycm_extra_conf.py Load prompt
+let g:ycm_confirm_extra_conf = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
