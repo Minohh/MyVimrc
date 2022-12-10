@@ -1,0 +1,178 @@
+set nocompatible
+filetype off
+
+""""""""""""" vundle """"""""""""""""""""""""""""""""""""""""""
+" Install vundle : 
+" git clone https://github.com/VundleVim/Vundle.vim.git
+" ~/.vim/bundle/Vundle.vim
+
+" Install plugins: 
+" 1. Open vim
+" 2. esc
+" 3. :PluginInstall
+" Remove plugins:
+" 1. delete the plugin line below
+" 2. open vim
+" 3. esc
+" 4. :PluginClean
+"
+call plug#begin()
+
+Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'jackguo380/vim-lsp-cxx-highlight'
+Plug 'morhetz/gruvbox'
+
+call plug#end()
+filetype indent on
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+if executable('pylsp')
+    " pip install python-lsp-server
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'pylsp',
+        \ 'cmd': {server_info->['pylsp']},
+        \ 'allowlist': ['python'],
+        \ })
+endif
+
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gs <plug>(lsp-document-symbol-search)
+    nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    "nnoremap <buffer> <expr><c-f> lsp#scroll(+4)
+    "nnoremap <buffer> <expr><c-d> lsp#scroll(-4)
+    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    let g:lsp_format_sync_timeout = 1000
+    autocmd! BufWritePre *.rs,*.go call execute('LspDocumentFormatSync')
+    
+    " refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+    au!
+    " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+" Configuration of vim-lsp to use cquery and ccls with vim-lsp
+
+" also see https://github.com/prabirshrestha/vim-lsp/wiki/Servers-cquery
+"
+" cquery always requires these options
+" highlight.enabled = true
+" emitInactiveRegions = true
+if executable('cquery')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'cquery',
+      \ 'cmd': {server_info->['cquery']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {
+      \   'cacheDirectory': '/path/to/cquery/cache',
+      \   'highlight': { 'enabled' : v:true },
+      \   'emitInactiveRegions': v:true
+      \ },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+endif
+
+" also see https://github.com/prabirshrestha/vim-lsp/wiki/Servers-ccls
+"
+" highlight.lsRanges = true
+" is only necessary if vim doesn't have +byte_offset
+if executable('ccls')
+   au User lsp_setup call lsp#register_server({
+      \ 'name': 'ccls',
+      \ 'cmd': {server_info->['ccls']},
+      \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+      \ 'initialization_options': {
+      \   'highlight': { 'lsRanges' : v:true },
+      \ },
+      \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+      \ })
+endif
+
+let g:lsp_semantic_enabled=1
+
+
+"""""""""""""""""""""""indent""""""""""""""""""""""""""""""""""
+"c indent style 
+"set autoindent
+"set cindent
+
+"indent width
+" show existing tab with 4 spaces width, still a tab
+set tabstop=4
+" sets the number of columns for a tab.
+set softtabstop=4
+
+"expand tab to space
+set expandtab
+" when indenting with '>'(type new tab), use 4 spaces width
+set shiftwidth=4
+
+" for C-like  programming where comments have explicit end
+" characters, if starting a new line in the middle of a comment automatically
+" insert the comment leader characters:
+autocmd FileType c,cpp,java set formatoptions+=ro
+"autocmd FileType c set omnifunc=ccomplete#Complete
+
+" two space indentation for some files
+autocmd FileType vim,lua,nginx,html,css set shiftwidth=2 softtabstop=2
+
+" in makefiles, don't expand tabs to spaces, since actual tab characters are
+" needed, and have indentation at 8 chars to be sure that all indents are tabs
+" (despite the mappings later):
+autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+" ensure normal tabs in assembly files
+" and set to NASM syntax highlighting
+autocmd FileType asm set shiftwidth=4 softtabstop=0 syntax=nasm
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+""""""""""""normal config""""""""""""""
+"set fileformats=unix
+
+" coloring
+set t_Co=256
+" fix background color erase, https://sunaku.github.io/vim-256color-bce.html 
+set t_ut=
+set background=dark
+let g:gruvbox_italic=1
+colorscheme gruvbox
+
+"systax highlight
+syntax on
+"colorscheme murphy
+
+set hlsearch
+
+"align style
+set cino=g0,:0
+
+"show line number
+set number
+
+"let line buffer to save over 50 lines for copy and parse
+set viminfo='1000,<500
+"""""""""""""""""""""""""""""""""""""""
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
