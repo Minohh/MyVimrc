@@ -177,6 +177,9 @@ set number
 
 "let line buffer to save over 50 lines for copy and parse
 set viminfo='1000,<500
+
+"use backspace to delete character on insert mode
+set backspace=2
 """""""""""""""""""""""""""""""""""""""
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
