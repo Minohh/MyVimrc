@@ -24,6 +24,9 @@ Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'jackguo380/vim-lsp-cxx-highlight'
 Plug 'morhetz/gruvbox'
+Plug 'liuchengxu/vista.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 filetype indent on
@@ -114,6 +117,49 @@ if executable('ccls')
 endif
 
 let g:lsp_semantic_enabled=1
+
+""""""""""""""""""""""""""""" fzf """""""""""""""""""""""""""""""""""""""""
+" 1. install ag-silver-searcher for ag search
+"     macos: brew install the_silver_searcher
+"     ubuntu: apt-get install silversearcher-ag
+" 2. install ctags
+"     macos: brew install universal-ctags
+"     ubuntu:
+"         git clone https://github.com/universal-ctags/ctags.git 
+"         cd ctags
+"         ./autogen.sh
+"         ./configure
+"         make -j8
+"         sudo make install
+let g:fzf_tags_command = 'ctags -R'
+" use \fa to search word on the cursor by ag
+nnoremap <silent> <Leader>fa :Ag <C-R><C-W><CR>
+" use \ft to search word on the cursor by ctags
+nnoremap <silent> <Leader>ft :Tags <C-R><C-W><CR>
+" use ctrl-p to open file search window
+nnoremap <silent> <c-p> :Files <CR>
+
+""""""""""""""""""""""""""""""" vista """""""""""""""""""""""""""""""""""""
+" 1. install ctags
+" Show the nearest method/function in the statusline
+function! NearestMethodOrFunction() abort
+    return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+set statusline+=%{NearestMethodOrFunction()}
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+let g:vista_default_executive = 'ctags'
+" Set the executive for some filetypes explicitly. Use the explicitexecutive
+" instead of the default one for these filetypes when using `:Vista` without
+" specifying the executive.
+let g:vista_executive_for = {
+    \ 'cpp': 'vim_lsp',
+    \ 'php': 'vim_lsp',
+    \ }
+let g:vista_sidebar_width = 50
 
 
 """""""""""""""""""""""indent""""""""""""""""""""""""""""""""""
