@@ -117,6 +117,7 @@ if executable('ccls')
 endif
 
 let g:lsp_semantic_enabled=1
+let g:lsp_diagnostics_echo_cursor = 1
 
 """"""""""""""""""""""""""""" fzf """""""""""""""""""""""""""""""""""""""""
 " 1. install ag-silver-searcher for ag search
