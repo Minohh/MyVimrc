@@ -60,7 +60,7 @@ lvim.autocommands = {
     {"BufEnter", "BufWinEnter"},
     {
       group = "lvim_user",
-      pattern = "*.cpp,*.c",
+      pattern = "*.cpp,*.c,*.h",
       command = "setlocal ts=4 sw=4"
     }
   }
