@@ -53,5 +53,19 @@ lvim.plugins = {
 lvim.colorscheme = "tokyonight"' >> ~/.config/lvim/config.lua
 
 
-# 6. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
+# 7. Change tab width from 2 spaces to 4 spaces
+echo '
+lvim.autocommands = {
+  {
+    {"BufEnter", "BufWinEnter"},
+    {
+      group = "lvim_user",
+      pattern = "*.cpp,*.c",
+      command = "setlocal ts=4 sw=4"
+    }
+  }
+}' >> ~/.config/lvim/config.lua
+
+
+# 8. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
 
