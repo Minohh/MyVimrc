@@ -66,6 +66,9 @@ lvim.autocommands = {
   }
 }' >> ~/.config/lvim/config.lua
 
+# 8. Reinstall ripgrep, which is installed in ~/.cargo/bin, to enable fuzzy grep "<leader>st"
+cargo uninstall ripgrep
+cargo install --root /data/ouming/anaconda3/ ripgrep
 
-# 8. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
+# 9. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
 
