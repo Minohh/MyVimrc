@@ -25,6 +25,7 @@ lvim.autocommands = {
   }
 }
 
+-- Formatter config, see formatter configuration https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
