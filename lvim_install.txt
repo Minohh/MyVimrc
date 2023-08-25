@@ -42,50 +42,14 @@ LV_BRANCH='release-1.3/neovim-0.9' bash <(curl -s https://raw.githubusercontent.
 
 
 # 6. Better color scheme
-echo '
-lvim.plugins = {
-  {"folke/tokyonight.nvim"},
-  {
-    "folke/trouble.nvim",
-    cmd = "TroubleToggle",
-  },
-}
-lvim.colorscheme = "tokyonight"' >> ~/.config/lvim/config.lua
-
-
 # 7. Change tab width from 2 spaces to 4 spaces
 # see formatter configuration https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options
-echo '
-vim.opt.shiftwidth = 4
-lvim.autocommands = {
-  {
-    {"BufEnter", "BufWinEnter"},
-    {
-      group = "lvim_user",
-      pattern = "*.cpp,*.c,*.h",
-      command = "setlocal ts=4 sw=4"
-    }
-  }
-}
+# 8. map 'sT' for searching cursor word
+mv config.lua ~/.config/lvim/config.lua
 
-local formatters = require "lvim.lsp.null-ls.formatters"
-formatters.setup {
-  {
-    command = "clang-format",
-    filetypes = { "cpp", "c" },
-    extra_args = { "--style", "WebKit" }
-  }
-}
-
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.offsetEncoding = 'utf-8'
-require('lspconfig').clangd.setup{
-        capabilities = capabilities
-}' >> ~/.config/lvim/config.lua
-
-# 8. Reinstall ripgrep, which is installed in ~/.cargo/bin, to enable fuzzy grep "<leader>st"
+# 9. Reinstall ripgrep, which is installed in ~/.cargo/bin, to enable fuzzy grep "<leader>st"
 cargo uninstall ripgrep
 cargo install --root /data/ouming/anaconda3/ ripgrep
 
-# 9. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
+# 10. For better color scheme, the terminal must support real color, e.g. secureCRT of version lager than 9.0. http://www.3h3.com/soft/228023.html
 
