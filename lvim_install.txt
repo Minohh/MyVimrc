@@ -64,6 +64,14 @@ lvim.autocommands = {
       command = "setlocal ts=4 sw=4"
     }
   }
+}
+local formatters = require "lvim.lsp.null-ls.formatters"
+formatters.setup {
+  {
+    command = "clang-format",
+    filetypes = { "cpp", "c" },
+    extra_args = { "--style", "{IndentWidth: 4, TabWidth: 4}" }
+  }
 }' >> ~/.config/lvim/config.lua
 
 # 8. Reinstall ripgrep, which is installed in ~/.cargo/bin, to enable fuzzy grep "<leader>st"
