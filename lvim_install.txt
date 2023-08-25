@@ -54,7 +54,9 @@ lvim.colorscheme = "tokyonight"' >> ~/.config/lvim/config.lua
 
 
 # 7. Change tab width from 2 spaces to 4 spaces
+# see formatter configuration https://clang.llvm.org/docs/ClangFormatStyleOptions.html#configurable-format-style-options
 echo '
+vim.opt.shiftwidth = 4
 lvim.autocommands = {
   {
     {"BufEnter", "BufWinEnter"},
@@ -65,13 +67,20 @@ lvim.autocommands = {
     }
   }
 }
+
 local formatters = require "lvim.lsp.null-ls.formatters"
 formatters.setup {
   {
     command = "clang-format",
     filetypes = { "cpp", "c" },
-    extra_args = { "--style", "{IndentWidth: 4, TabWidth: 4}" }
+    extra_args = { "--style", "WebKit" }
   }
+}
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.offsetEncoding = 'utf-8'
+require('lspconfig').clangd.setup{
+        capabilities = capabilities
 }' >> ~/.config/lvim/config.lua
 
 # 8. Reinstall ripgrep, which is installed in ~/.cargo/bin, to enable fuzzy grep "<leader>st"
