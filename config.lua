@@ -46,4 +46,4 @@ function GrepInputString()
   local default = vim.api.nvim_eval([[expand("<cword>")]])
   require("telescope.builtin").grep_string({ default_text = default })
 end
-lvim.builtin.which_key.mappings["sT"] = { "<cmd>lua GrepInputString()<CR>", "Text under cursor" }
+lvim.builtin.which_key.mappings["ss"] = { "<cmd>lua GrepInputString()<CR>", "Text under cursor" }
