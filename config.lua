@@ -9,6 +9,10 @@ lvim.plugins = {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
   },
+  {
+    "simrat39/symbols-outline.nvim",
+    config = function() require('symbols-outline').setup() end,
+  },
 }
 lvim.colorscheme = "tokyonight"
 
@@ -41,7 +45,7 @@ require('lspconfig').clangd.setup{
         capabilities = capabilities
 }
 
--- map 'sT' for search cursor word
+-- map 'ss' for search cursor word
 function GrepInputString()
   local default = vim.api.nvim_eval([[expand("<cword>")]])
   require("telescope.builtin").grep_string({ default_text = default })
