@@ -17,6 +17,7 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 mkdir -p /data/ouming/anaconda3/bin/
 cp nvim.appimage /data/ouming/anaconda3/bin/nvim
+# *for MacOS, deactivate conda venv, then brew install neovim
 
 
 # 3. Install npm nodejs 
